@@ -144,7 +144,6 @@ module.exports = {
 | getWebAppTheme | () => "dark" \| "light" | [getTheme]() | 获得当前Web应用的主题模式（亮色｜暗色），当不存在 `theme` 参数时根据当前函数的返回值设置编辑器的主题 |
 | onWebAppThemeChange | (callback: (theme: "dark" \| "light") => void) => (() => void) \| void | [onDidChangeTheme]() | 当当前Web应用的主题模式（亮色｜暗色）发生改变时的监听函数，当不存在 `theme` 参数时根据当前监听函数的返回值动态设置编辑器的主题 |
 
-
 #### options 参数默认值
 
 ``` ts
