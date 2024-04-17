@@ -1,18 +1,14 @@
 # @hankliu/rc-monaco-editor
 
-HankLiu UI React Footer Component.
+`MonacoEditor` 编辑器是 `VS Code` 中功能齐全的代码编辑器，支持多种常规语言的IDE，允许配置支持智能提示。
 
-## Feature
+## 特征
 
-- [x] Placeholder
-- [x] Preview
-- [x] Rotate
-- [x] Zoom
-- [x] Flip
-- [x] Fallback
-- [x] Multiple Preview
+- [x] 支持常见语言
+- [x] 支持多种主题【`vs` | `vs-dark` | `hc-black` | `hc-light`】
 
-## install
+## 安装
+
 ``` bash
 npm install @hankliu/rc-monaco-editor --save
 ```
@@ -29,12 +25,7 @@ or
 pnpm install @hankliu/rc-monaco-editor
 ```
 
-## Usage
-
-```bash
-npm install
-npm start
-```
+## 使用
 
 ```js
 import MonacoEditor from '@hankliu/rc-monaco-editor';
@@ -120,7 +111,21 @@ export default function Base() {
 }
 ```
 
-## API
+将 `Monaco Webpack` 插件 [monaco-editor-webpack-plugin](https://github.com/microsoft/monaco-editor/tree/main/webpack-plugin) 添加到您的 `webpack.config.js` 中：
+
+``` javascript
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
+module.exports = {
+  plugins: [
+    new MonacoWebpackPlugin({
+      // available options are documented at https://github.com/microsoft/monaco-editor/blob/main/webpack-plugin/README.md#options
+      languages: ['json']
+    })
+  ]
+};
+```
+
+## API 参数
 
 | 名称 | 类型 | 默认值 | 描述 |
 | --- | --- | --- | --- |
