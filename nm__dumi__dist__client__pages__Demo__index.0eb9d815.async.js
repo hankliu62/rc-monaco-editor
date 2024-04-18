@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_hankliu_rc_monaco_editor=self.webpackChunk_hankliu_rc_monaco_editor||[]).push([[1009],{12535:function(f,n,e){e.r(n),e.d(n,{default:function(){return u}});var a=e(73847),r=e(67294),t=function(){var d=(0,a.UO)(),m=d.id,c=(0,a.WF)(),s=c.demos,i=s[m]||{},o=i.component;return o&&(0,r.createElement)(o)},u=t}}]);
