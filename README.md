@@ -12,7 +12,7 @@
 [npm-image]: http://img.shields.io/npm/v/rc-monaco-editor.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/@hankliu/rc-monaco-editor
 [travis-image]: https://img.shields.io/travis/hankliu62/rc-monaco-editor/master?style=flat-square
-[github-actions-image]: https://github.com/hankliu62/rc-monaco-editor/workflows/Publish%20Footer%20Components%20Into%20NPM/badge.svg
+[github-actions-image]: https://github.com/hankliu62/rc-monaco-editor/workflows/CI/badge.svg
 [github-actions-url]: https://github.com/hankliu62/rc-monaco-editor/actions
 [codecov-image]: https://img.shields.io/codecov/c/github/hankliu62/rc-monaco-editor/master.svg?style=flat-square
 [codecov-url]: https://app.codecov.io/gh/hankliu62/rc-monaco-editor

@@ -1,6 +1,6 @@
 {
   "name": "@hankliu/rc-monaco-editor",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "private": false,
   "description": "React easy to use monaco-editor component",
   "keywords": [
@@ -43,7 +43,6 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.24.4",
-    "@hankliu/hankliu-ui": "^0.0.1",
     "classnames": "^2.5.1",
     "json_typegen_wasm": "^0.7.0",
     "monaco-editor": "^0.47.0",
@@ -51,11 +50,11 @@
     "prettier": "^3.2.5",
     "prettier-plugin-java": "^2.6.0",
     "prettier-plugin-rust": "^0.1.9",
-    "react-color": "^2.19.3",
     "sql-formatter": "^15.3.0",
     "worker-loader": "3.0.1"
   },
   "devDependencies": {
+    "@hankliu/hankliu-ui": "^0.0.1",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^15.0.2",
     "@types/classnames": "^2.3.0",
@@ -75,6 +74,7 @@
     "np": "^10.0.3",
     "rc-test": "^7.0.15",
     "react": "^18.2.0",
+    "react-color": "^2.19.3",
     "react-dom": "^18.2.0",
     "typescript": "^5.4.5"
   }

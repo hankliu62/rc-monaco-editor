@@ -23,11 +23,14 @@ timeline: true
 ```
 ---
 
+## 0.0.5
+- 🛠 将 `@hankliu/hankliu-ui`、 `react-color` 等文档使用的UI组件库从 `dependencies` 移入到 `devDependencies` 中。
+
 ## 0.0.3
 
 - 🆕 新增 `readOnly`, `highlightWhitespace`, `highlightActiveLine`, `formatOnSave` 等属性
-- 🐞 修复文档站点生成失败问题
-- 🗑 移除无用的 `css` 和 `less` 文件
+- 🐞 修复文档站点生成失败问题。
+- 🗑 移除无用的 `css` 和 `less` 文件。
 
 ## 0.0.1
-- 🆕 React monaco editor 组件，支持多种语言，支持多种主题
+- 🆕 React monaco editor 组件，支持多种语言，支持多种主题。

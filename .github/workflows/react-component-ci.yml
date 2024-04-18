@@ -1,4 +1,4 @@
-name: Publish Footer Components Into NPM
+name: CI
 
 on:
   push:
