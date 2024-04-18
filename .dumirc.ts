@@ -23,20 +23,6 @@ const config: ReturnType<typeof defineConfig> = {
     }]);
 
     memo.plugin('NodePolyfillPlugin').use(NodePolyfillPlugin, []);
-    // umijs 配置worker-loader
-    // memo.module
-    // .rule('worker')
-    //   .test(/\.worker\.(t|j)s$/)
-    //   .use('babel-loader')
-    //   .loader('babel-loader')
-    //   .options({
-    //     presets: ['@babel/preset-typescript'],
-    //   })
-    //   .end()
-    //   .use('worker-loader')
-    //   .loader('worker-loader')
-    //   .options({ inline: no-fallback });
-    memo.stats({ children: true });
   },
   mfsu: false,
   extraBabelPlugins: [

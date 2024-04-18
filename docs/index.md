@@ -1,7 +1,7 @@
 ---
 hero:
   title: @hankliu/rc-monaco-editor
-  description: HankLiu UI Footer.
+  description: React Monaco Editor Component.
 ---
 
 <embed src="../README.md"></embed>
