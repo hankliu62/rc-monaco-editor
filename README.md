@@ -1,7 +1,5 @@
 # @hankliu/rc-monaco-editor
 
-`MonacoEditor` 编辑器是 `VS Code` 中功能齐全的代码编辑器，支持多种常规语言的IDE，允许配置支持智能提示。
-
 [![NPM version][npm-image]][npm-url]
 [![npm download][download-image]][download-url]
 [![build status][github-actions-image]][github-actions-url]
@@ -23,10 +21,13 @@
 [dumi-url]: https://github.com/umijs/dumi
 [dumi-image]: https://img.shields.io/badge/docs%20by-dumi-blue?style=flat-square
 
-## 特征
+`MonacoEditor` 编辑器是 `VS Code` 中功能齐全的代码编辑器，支持多种常规语言的IDE，允许配置支持智能提示。
+
+## 功能特征
 
 - [x] 支持常见语言
-- [x] 支持多种主题【`vs` | `vs-dark` | `hc-black` | `hc-light`】
+- [x] 支持多种主题
+- [x] 代码自动格式化
 
 ## 安装
 
