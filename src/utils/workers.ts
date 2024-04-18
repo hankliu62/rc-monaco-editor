@@ -1,4 +1,4 @@
-import PQueue from "p-queue";
+import PQueue from 'p-queue';
 
 export function createWorkerQueue(Worker) {
   const worker = new Worker();
@@ -11,15 +11,15 @@ export function createWorkerQueue(Worker) {
       worker.postMessage({ _current: _id });
       return queue.add(
         () =>
-          new Promise((resolve) => {
+          new Promise(resolve => {
             function onMessage(event) {
               if (event.data._id !== _id) return;
-              worker.removeEventListener("message", onMessage);
+              worker.removeEventListener('message', onMessage);
               resolve(event.data);
             }
-            worker.addEventListener("message", onMessage);
+            worker.addEventListener('message', onMessage);
             worker.postMessage({ ...data, _id });
-          })
+          }),
       );
     },
     terminate() {
@@ -29,14 +29,14 @@ export function createWorkerQueue(Worker) {
 }
 
 export function requestResponse(worker, data) {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     const _id = Math.random().toString(36).slice(2, 7);
     function onMessage(event) {
       if (event.data._id !== _id) return;
-      worker.removeEventListener("message", onMessage);
+      worker.removeEventListener('message', onMessage);
       resolve(event.data);
     }
-    worker.addEventListener("message", onMessage);
+    worker.addEventListener('message', onMessage);
     worker.postMessage({ ...data, _id });
   });
 }

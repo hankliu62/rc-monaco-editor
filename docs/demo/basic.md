@@ -5,6 +5,6 @@ nav:
   path: /demo
 ---
 
-## html 案例
+## 基础案例
 
 <code src="../examples/basic.tsx"></code>

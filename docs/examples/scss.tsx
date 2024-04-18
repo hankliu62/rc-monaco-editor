@@ -1,6 +1,5 @@
 import MonacoEditor, { EMonacoEditorTheme } from '@hankliu/rc-monaco-editor';
 import * as React from 'react';
-import '../../assets/index.less';
 
 const LanguageDemo = `// variables
 $primary-color: #007bff;
@@ -59,7 +58,7 @@ body {
 `;
 
 export default function Base() {
-  const [content, setContent] = React.useState<string>(LanguageDemo)
+  const [content, setContent] = React.useState<string>(LanguageDemo);
 
   return (
     <div>
@@ -67,7 +66,7 @@ export default function Base() {
         height={400}
         value={content}
         language="scss"
-        onChange={(val) => {
+        onChange={val => {
           setContent(val);
         }}
         theme={EMonacoEditorTheme.VSDark}

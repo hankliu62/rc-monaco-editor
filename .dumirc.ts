@@ -1,6 +1,7 @@
 import path from 'path';
 import { defineConfig } from 'dumi';
 import MonacoWebpackPlugin from "monaco-editor-webpack-plugin";
+import NodePolyfillPlugin from "node-polyfill-webpack-plugin";
 import { EditorLanguage } from 'monaco-editor/esm/metadata';
 
 import { Languages } from './src/constants/editor'
@@ -18,10 +19,36 @@ const config: ReturnType<typeof defineConfig> = {
   chainWebpack(memo) {
     memo.plugin('MonacoWebpackPlugin').use(MonacoWebpackPlugin, [{
       languages: Languages as EditorLanguage[],
-      filename: "dist/[name].worker.js",
+      filename: "static/[name].worker.js",
     }]);
+
+    memo.plugin('NodePolyfillPlugin').use(NodePolyfillPlugin, []);
+    // umijs 配置worker-loader
+    // memo.module
+    // .rule('worker')
+    //   .test(/\.worker\.(t|j)s$/)
+    //   .use('babel-loader')
+    //   .loader('babel-loader')
+    //   .options({
+    //     presets: ['@babel/preset-typescript'],
+    //   })
+    //   .end()
+    //   .use('worker-loader')
+    //   .loader('worker-loader')
+    //   .options({ inline: no-fallback });
+    memo.stats({ children: true });
   },
   mfsu: false,
+  extraBabelPlugins: [
+    [
+      'babel-plugin-import',
+      {
+        libraryName: '@hankliu/hankliu-ui',
+        libraryDirectory: 'lib',
+        style: true,
+      },
+    ],
+  ],
 }
 
 // 是否通过github actions部署

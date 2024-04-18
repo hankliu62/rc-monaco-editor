@@ -7,10 +7,8 @@ import { render } from '@testing-library/react';
 
 describe('Basic', () => {
   it('className props should work on component', () => {
-    const className = "hankliu-monaco-editor"
-    const { container } = render(
-      <div className={className} />,
-    );
+    const className = 'hankliu-monaco-editor';
+    const { container } = render(<div className={className} />);
     // @ts-ignore
     expect(container.firstChild).toHaveClass(className);
   });

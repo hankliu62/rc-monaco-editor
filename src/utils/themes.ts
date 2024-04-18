@@ -1,22 +1,17 @@
-export function getTheme(): "dark" | "light" {
-  return document.querySelector("html")?.classList.contains("dark")
-    ? "dark"
-    : "light";
+export function getTheme(): 'dark' | 'light' {
+  return document.querySelector('html')?.classList.contains('dark') ? 'dark' : 'light';
 }
 
-export function onDidChangeTheme(callback: (theme: "dark" | "light") => void): (() => void) | void {
-  const root = document.querySelector("html");
+export function onDidChangeTheme(callback: (theme: 'dark' | 'light') => void): (() => void) | void {
+  const root = document.querySelector('html');
 
-  const observer = new MutationObserver((mutationsList) => {
+  const observer = new MutationObserver(mutationsList => {
     for (const mutation of mutationsList) {
-      if (
-        mutation.type === "attributes" &&
-        mutation.attributeName === "class"
-      ) {
-        if (root?.classList.contains("dark")) {
-          callback("dark");
+      if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+        if (root?.classList.contains('dark')) {
+          callback('dark');
         } else {
-          callback("light");
+          callback('light');
         }
       }
     }
@@ -30,20 +25,20 @@ export function onDidChangeTheme(callback: (theme: "dark" | "light") => void): (
 }
 
 export function toggleTheme() {
-  const root = document.querySelector("html");
-  root?.classList.add("disable-transitions");
-  if (root?.classList.contains("dark")) {
-    root.classList.remove("dark");
+  const root = document.querySelector('html');
+  root?.classList.add('disable-transitions');
+  if (root?.classList.contains('dark')) {
+    root.classList.remove('dark');
     try {
-      window.localStorage.setItem("theme", "light");
+      window.localStorage.setItem('theme', 'light');
     } catch {}
   } else {
-    root?.classList.add("dark");
+    root?.classList.add('dark');
     try {
-      window.localStorage.setItem("theme", "dark");
+      window.localStorage.setItem('theme', 'dark');
     } catch {}
   }
   window.setTimeout(() => {
-    root?.classList.remove("disable-transitions");
+    root?.classList.remove('disable-transitions');
   }, 0);
 }

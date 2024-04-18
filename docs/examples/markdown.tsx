@@ -1,6 +1,5 @@
 import MonacoEditor, { EMonacoEditorTheme } from '@hankliu/rc-monaco-editor';
 import * as React from 'react';
-import '../../assets/index.less';
 
 const LanguageDemoMarkdown = `# Turndown Demo
 
@@ -31,7 +30,7 @@ It aims to be [CommonMark](http://commonmark.org/) compliant, and includes optio
 `;
 
 export default function Base() {
-  const [content, setContent] = React.useState<string>(LanguageDemoMarkdown)
+  const [content, setContent] = React.useState<string>(LanguageDemoMarkdown);
 
   return (
     <div>
@@ -39,7 +38,7 @@ export default function Base() {
         height={400}
         value={content}
         language="markdown"
-        onChange={(val) => {
+        onChange={val => {
           setContent(val);
         }}
         theme={EMonacoEditorTheme.VS}

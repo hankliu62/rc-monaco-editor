@@ -19,3 +19,6 @@ updates:
   - dependency-name: less
     versions:
     - 4.1.0
+  - dependency-name: eslint
+    versions:
+    - 7.1.0

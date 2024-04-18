@@ -1,37 +1,37 @@
-import prettier from "prettier";
-import parserAngular from "prettier/plugins/angular";
-import parserBabel from "prettier/plugins/babel";
-import parserFlow from "prettier/plugins/flow";
-import parserGraphql from "prettier/plugins/graphql";
-import parserHtml from "prettier/plugins/html";
-import parserMarkdown from "prettier/plugins/markdown";
-import parserPostcss from "prettier/plugins/postcss";
-import parserTypescript from "prettier/plugins/typescript";
-import parserYaml from "prettier/plugins/yaml";
-import parserJava from "prettier-plugin-java";
-import * as parserRust from "prettier-plugin-rust";
-import parserShell from "prettier-plugin-sh";
-import { format as formatSQL } from "sql-formatter";
+import prettier from 'prettier';
+import pluginAngular from 'prettier/plugins/angular';
+import pluginBabel from 'prettier/plugins/babel';
+import pluginFlow from 'prettier/plugins/flow';
+import pluginGraphql from 'prettier/plugins/graphql';
+import pluginHtml from 'prettier/plugins/html';
+import pluginMarkdown from 'prettier/plugins/markdown';
+import pluginPostcss from 'prettier/plugins/postcss';
+import pluginTypescript from 'prettier/plugins/typescript';
+import pluginYaml from 'prettier/plugins/yaml';
+import pluginEstree from 'prettier/plugins/estree';
+import pluginJava from 'prettier-plugin-java';
+import * as pluginRust from 'prettier-plugin-rust';
+import { format as formatSQL } from 'sql-formatter';
 
 let current;
 
 const ctx: Worker = self as any;
 
 const langToParser = {
-  json: "json",
-  javascript: "babel",
-  typescript: "typescript",
-  css: "css",
-  less: "less",
-  scss: "scss",
-  markdown: "markdown",
-  graphql: "graphql",
-  handlebars: "handlebars",
-  html: "html",
-  yaml: "yaml",
+  json: 'json',
+  javascript: 'babel',
+  typescript: 'typescript',
+  css: 'css',
+  less: 'less',
+  scss: 'scss',
+  markdown: 'markdown',
+  graphql: 'graphql',
+  handlebars: 'handlebars',
+  html: 'html',
+  yaml: 'yaml',
 };
 
-ctx.addEventListener("message", async (event) => {
+ctx.addEventListener('message', async event => {
   if (event.data._current) {
     current = event.data._current;
     return;
@@ -50,46 +50,40 @@ ctx.addEventListener("message", async (event) => {
   try {
     if (langToParser[event.data.language]) {
       respond({
-        pretty: prettier.format(event.data.text, {
+        pretty: await prettier.format(event.data.text, {
           parser: langToParser[event.data.language],
           plugins: [
-            parserMarkdown,
-            parserHtml,
-            parserTypescript,
-            parserPostcss,
-            parserAngular,
-            parserBabel,
-            parserGraphql,
-            parserFlow,
-            parserYaml,
+            pluginMarkdown,
+            pluginHtml,
+            pluginTypescript,
+            pluginPostcss,
+            pluginAngular,
+            pluginBabel,
+            pluginGraphql,
+            pluginFlow,
+            pluginYaml,
+            pluginEstree,
           ],
           printWidth: 80,
         }),
       });
-    } else if (event.data.language === "sql") {
+    } else if (event.data.language === 'sql') {
       // SQL格式化工具
       respond({
-        pretty: formatSQL(event.data.text),
+        pretty: await formatSQL(event.data.text),
       });
-    } else if (event.data.language === "rust") {
+    } else if (event.data.language === 'rust') {
       // rust格式化工具
       respond({
-        pretty: prettier.format(event.data.text, {
-          plugins: [parserRust],
+        pretty: await prettier.format(event.data.text, {
+          plugins: [pluginRust],
         }),
       });
-    } else if (event.data.language === "shell") {
-      // shell格式化工具
-      respond({
-        pretty: prettier.format(event.data.text, {
-          plugins: [parserShell],
-        }),
-      });
-    } else if (event.data.language === "java") {
+    } else if (event.data.language === 'java') {
       // java格式化工具
       respond({
-        pretty: prettier.format(event.data.text, {
-          plugins: [parserJava],
+        pretty: await prettier.format(event.data.text, {
+          plugins: [pluginJava],
         }),
       });
     }

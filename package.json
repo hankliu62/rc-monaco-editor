@@ -1,6 +1,6 @@
 {
   "name": "@hankliu/rc-monaco-editor",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": false,
   "description": "React easy to use monaco-editor component",
   "keywords": [
@@ -13,7 +13,6 @@
   "module": "./es/index",
   "types": "./lib/index.d.ts",
   "files": [
-    "assets/*.css",
     "es",
     "lib"
   ],
@@ -30,10 +29,10 @@
     "start": "dumi dev",
     "docs:build": "dumi build",
     "docs:deploy": "gh-pages -d docs-dist",
-    "compile": "father build && lessc assets/index.less assets/index.css",
+    "compile": "father build",
     "prepublishOnlyNot": "npm run compile && np patch --yolo --no-publish --any-branch",
     "lint": "eslint src/ --ext .ts,.tsx,.jsx,.js,.md",
-    "prettier": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "prettier": "prettier --write \"./(src|test|docs)/**/*.{ts,tsx,js,jsx,json,md}\"",
     "test": "rc-test -u",
     "coverage": "rc-test -u --coverage",
     "now-build": "npm run docs:build"
@@ -44,6 +43,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.24.4",
+    "@hankliu/hankliu-ui": "^0.0.1",
     "classnames": "^2.5.1",
     "json_typegen_wasm": "^0.7.0",
     "monaco-editor": "^0.47.0",
@@ -51,7 +51,7 @@
     "prettier": "^3.2.5",
     "prettier-plugin-java": "^2.6.0",
     "prettier-plugin-rust": "^0.1.9",
-    "prettier-plugin-sh": "^0.14.0",
+    "react-color": "^2.19.3",
     "sql-formatter": "^15.3.0",
     "worker-loader": "3.0.1"
   },
@@ -63,6 +63,7 @@
     "@types/react": "^18.2.78",
     "@types/react-dom": "^18.2.25",
     "@umijs/fabric": "^4.0.1",
+    "babel-plugin-import": "^1.13.8",
     "cross-env": "^7.0.3",
     "dumi": "^2.2.17",
     "eslint": "^7.1.0",
@@ -70,6 +71,7 @@
     "glob": "^10.3.12",
     "less": "^4.2.0",
     "monaco-editor-webpack-plugin": "^7.1.0",
+    "node-polyfill-webpack-plugin": "^3.0.0",
     "np": "^10.0.3",
     "rc-test": "^7.0.15",
     "react": "^18.2.0",

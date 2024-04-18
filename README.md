@@ -30,7 +30,7 @@ pnpm install @hankliu/rc-monaco-editor
 ```js
 import MonacoEditor from '@hankliu/rc-monaco-editor';
 import * as React from 'react';
-import '../../assets/index.less';
+
 
 const LanguageDemoHtml = `<h1>Turndown Demo</h1>
 
@@ -134,8 +134,12 @@ module.exports = {
 | width | string \| number | 100% | 编辑器的宽度。|
 | height | string \| number | 100% | 编辑器的高度 |
 | value | 编辑器中自动创建的模型的值 | string | - |
-| language | string | - | 编辑器中自动创建的模型的初始语言 |
+| language | TMonacoEditorLanguage | - | 编辑器中自动创建的模型的初始语言 |
 | theme | EMonacoEditorTheme | - | 编辑器的主题 |
+| readOnly | boolean | false | 编辑器是否只读 |
+| highlightWhitespace | boolean | true | 是否高亮空格 |
+| highlightActiveLine | boolean | true | 是否高亮当前所在的行 |
+| formatOnSave | boolean | true | 保存时，是否自动格式化 |
 | options | monaco.editor.IStandaloneEditorConstructionOptions | 默认值在如下所示 | 请参阅 [monaco.editor.IStandaloneEditorConstructionOptions](https://microsoft.github.io/monaco-editor/docs.html#variables/editor.EditorOptions.html) |
 | onChange | (newValue: string, event: monaco.editor.IModelContentChangedEvent) => void | - | 当前编辑器模型的内容发生更改时发出的事件 |
 | onWillMount | (monaco) => void | - | 在编辑器挂载之前发出的事件（类似于 `componentWillMount React`） |

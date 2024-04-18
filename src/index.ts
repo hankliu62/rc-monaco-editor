@@ -1,5 +1,7 @@
-import Editor from './editor';
+import MonacoEditor from './editor';
+
+export * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 
 export * from './editor';
 
-export default Editor;
+export default MonacoEditor;
