@@ -51,7 +51,7 @@
     "prettier-plugin-java": "^2.6.0",
     "prettier-plugin-rust": "^0.1.9",
     "sql-formatter": "^15.3.0",
-    "worker-loader": "3.0.1"
+    "worker-loader": "3.0.8"
   },
   "devDependencies": {
     "@hankliu/hankliu-ui": "^0.0.1",
