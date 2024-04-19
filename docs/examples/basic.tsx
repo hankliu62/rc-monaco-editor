@@ -1,12 +1,8 @@
-import type { TMonacoEditorLanguage } from '@hankliu/rc-monaco-editor';
-import MonacoEditor, {
-  EMonacoEditorTheme,
-  Languages,
-  createWorkerQueue,
+import type {
+  IMonacoEditorImperativeHandles,
+  TMonacoEditorLanguage,
 } from '@hankliu/rc-monaco-editor';
-// 如果想使用@hankliu/rc-monaco-editor中的prettier.worker，需要相对定位到node_modules/@hankliu/rc-monaco-editor/lib/workers/prettier.worker.js中的路径中
-// @ts-ignore
-import PrettierWorker from 'worker-loader!../../src/workers/prettier.worker.ts';
+import MonacoEditor, { EMonacoEditorTheme, Languages } from '@hankliu/rc-monaco-editor';
 import * as React from 'react';
 import {
   Button,
@@ -741,27 +737,20 @@ export default function Base() {
   // 保存时，是否自动格式化
   const [formatOnSave, setFormatOnSave] = React.useState<boolean>(true);
 
-  // 格式化工作线程
-  const prettierWorker = React.useRef<any>();
-
-  React.useEffect(() => {
-    if (!prettierWorker.current) {
-      // 创建格式化工作线程
-      prettierWorker.current = createWorkerQueue(PrettierWorker);
-    }
-  }, []);
+  // 文本编辑器
+  const editorRef = React.useRef<IMonacoEditorImperativeHandles>(null);
 
   /**
    * 格式化代码
    */
   const onFormatCode = React.useCallback(
     async (val?: string) => {
-      if (prettierWorker.current) {
+      if (editorRef.current) {
         // 使用WebWorker进行代码格式化处理
-        const { canceled, error, pretty } = await prettierWorker.current.emit({
-          text: val || content,
-          language: language,
-        });
+        const { canceled, error, pretty } = await editorRef.current.format(
+          val || content,
+          language,
+        );
 
         if (error) {
           message.error(error.message);
@@ -802,6 +791,7 @@ export default function Base() {
   return (
     <ConfigProvider locale={zhCN}>
       <MonacoEditor
+        ref={editorRef}
         height={height}
         value={content}
         language={language}

@@ -89,4 +89,27 @@ export const LanguageDemo = {
   xml: '',
 };
 
+export const LanguagePrettierParser = {
+  json: 'json',
+  javascript: 'babel',
+  typescript: 'typescript',
+  css: 'css',
+  less: 'less',
+  scss: 'scss',
+  markdown: 'markdown',
+  graphql: 'graphql',
+  handlebars: 'handlebars',
+  html: 'html',
+  yaml: 'yaml',
+};
+
+export const SupportLanguages = [...Object.keys(LanguagePrettierParser), 'rust', 'sql', 'java'];
+
 export const Languages = Object.keys(LanguageDemo);
+
+export enum EMonacoEditorTheme {
+  VS = 'vs',
+  VSDark = 'vs-dark',
+  HCBlack = 'hc-black',
+  HCLight = 'hc-light',
+}

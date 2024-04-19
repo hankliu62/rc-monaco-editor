@@ -1,11 +1,6 @@
 # @hankliu/rc-monaco-editor
 
-[![NPM version][npm-image]][npm-url]
-[![npm download][download-image]][download-url]
-[![build status][github-actions-image]][github-actions-url]
-[![Codecov][codecov-image]][codecov-url]
-[![bundle size][bundlephobia-image]][bundlephobia-url]
-[![dumi][dumi-image]][dumi-url]
+[![NPM version][npm-image]][npm-url] [![npm download][download-image]][download-url] [![build status][github-actions-image]][github-actions-url] [![Codecov][codecov-image]][codecov-url] [![bundle size][bundlephobia-image]][bundlephobia-url] [![dumi][dumi-image]][dumi-url]
 
 [npm-image]: http://img.shields.io/npm/v/rc-monaco-editor.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/@hankliu/rc-monaco-editor
@@ -31,19 +26,19 @@
 
 ## 安装
 
-``` bash
+```bash
 npm install @hankliu/rc-monaco-editor --save
 ```
 
 or
 
-``` bash
+```bash
 yarn add @hankliu/rc-monaco-editor
 ```
 
 or
 
-``` bash
+```bash
 pnpm install @hankliu/rc-monaco-editor
 ```
 
@@ -133,18 +128,41 @@ export default function Base() {
 }
 ```
 
+### 添加 `Monaco Webpack` 插件
+
 将 `Monaco Webpack` 插件 [monaco-editor-webpack-plugin](https://github.com/microsoft/monaco-editor/tree/main/webpack-plugin) 添加到您的 `webpack.config.js` 中：
 
-``` javascript
+```javascript
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 module.exports = {
   plugins: [
     new MonacoWebpackPlugin({
       // available options are documented at https://github.com/microsoft/monaco-editor/blob/main/webpack-plugin/README.md#options
-      languages: ['json']
-    })
-  ]
+      languages: ['json'],
+    }),
+  ],
 };
+```
+
+### 在 NextJs 中使用
+
+像其他 `React` 组件一样，这个组件也可以顺利使用 `NextJs`。应预先解析的源代码部分已针对服务器端渲染进行了优化，因此在通常情况下可以正常工作，如果想在 `NextJs` 使用 `SSR` 或者 `SSG` 进行渲染的项目中使用的话，`import` 方式改成[动态导入](https://nextjs.org/docs/pages/building-your-application/optimizing/lazy-loading#with-no-ssr)的方式，它会正常工作。使用方式如下所示：
+
+```txt
+import dynamic from 'next/dynamic';
+
+const MonacoEditor = dynamic(() => import('@hankliu/rc-monaco-editor'), {
+  ssr: false,
+});
+```
+
+否则有可能出现如下错误：
+
+```txt
+import { EditorOptions } from './common/config/editorOptions.js';
+^^^^^^
+
+SyntaxError: Cannot use import statement outside a module
 ```
 
 ## API 参数
@@ -153,7 +171,7 @@ module.exports = {
 | --- | --- | --- | --- |
 | className | string | - | 组件外层元素classname |
 | prefixCls | string | hlui-monaco-editor | 组件外层元素 classname 前缀 |
-| width | string \| number | 100% | 编辑器的宽度。|
+| width | string \| number | 100% | 编辑器的宽度。 |
 | height | string \| number | 100% | 编辑器的高度 |
 | value | 编辑器中自动创建的模型的值 | string | - |
 | language | TMonacoEditorLanguage | - | 编辑器中自动创建的模型的初始语言 |
@@ -172,7 +190,7 @@ module.exports = {
 
 #### options 参数默认值
 
-``` ts
+```ts
 {
   readOnly: false, // 是否可编辑 // 是否为只读模式
   // language: language, // 语言类型
@@ -220,6 +238,13 @@ module.exports = {
   // ...options, // 自定义选项
 }
 ```
+
+## Ref 方法
+
+| 名称 | 类型 | 描述 |
+| --- | --- | --- |
+| getEditor | () => monaco.editor.IStandaloneCodeEditor \| null | 获得文本编辑器 |
+| format | (text?: string, lang?: TEditorLanguage) => `Promise<{ canceled?: boolean; error?: Error; pretty?: string }>` | 如果传入参数，格式话参数中的代码，如果没有传入参数，默认格式化文本编辑器代码 |
 
 ## 案例
 

@@ -5,17 +5,17 @@ import { CommandsRegistry } from 'monaco-editor/esm/vs/platform/commands/common/
 import type { ForwardRefRenderFunction } from 'react';
 import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
 
-import type { TEditorLanguage } from '@/types/editor';
+import type { TEditorLanguage } from '@/types';
 import { getTheme, onDidChangeTheme } from '@/utils/themes';
+import { formattingEditorContent, registerDocumentFormattingEditProviders } from '@/format';
+import { EMonacoEditorTheme, SupportLanguages } from '@/constants';
 
-export * from '@/constants/editor';
-export * from '@/types/editor';
+export * from '@/constants';
+export * from '@/types';
 export * from '@/utils/themes';
 export * from '@/utils/workers';
 export * from '@/format';
 export * from '@/setupTsxMode';
-
-import { registerDocumentFormattingEditProviders } from './format';
 
 function processSize(size: number | string) {
   return !/^\d+$/.test(size as string) ? size : `${size}px`;
@@ -37,20 +37,14 @@ function setupKeybindings(editor): { dispose: () => void } {
 export type Monaco = typeof monaco;
 
 export interface IMonacoEditorImperativeHandles {
+  // 获得文本编辑器
   getEditor: () => monaco.editor.IStandaloneCodeEditor | null;
+  // 格式化代码
+  format: (text?: string, lang?: TEditorLanguage) => ReturnType<typeof formattingEditorContent>;
   monaco: Monaco;
 }
 
-export enum EMonacoEditorTheme {
-  VS = 'vs',
-  VSDark = 'vs-dark',
-  HCBlack = 'hc-black',
-  HCLight = 'hc-light',
-}
-
-export type TMonacoEditorLanguage = TEditorLanguage;
-
-interface IMonacoEditorProps {
+export interface IMonacoEditorProps {
   width?: string | number;
   height?: string | number;
   prefixCls?: string;
@@ -78,7 +72,7 @@ interface IMonacoEditorProps {
  * @param props
  * @returns
  */
-const SqlEditor: ForwardRefRenderFunction<IMonacoEditorImperativeHandles, IMonacoEditorProps> = (
+const CodeEditor: ForwardRefRenderFunction<IMonacoEditorImperativeHandles, IMonacoEditorProps> = (
   {
     theme,
     prefixCls = 'hlui-monaco-editor',
@@ -121,9 +115,6 @@ const SqlEditor: ForwardRefRenderFunction<IMonacoEditorImperativeHandles, IMonac
   const disposeFormatOnSaveHandler = useRef<() => void>(null);
   // 当前保存是否会进行格式化
   const formattingOnSave = useRef<boolean>(false);
-  function getEditor(): MonacoEditor.IStandaloneCodeEditor | null {
-    return editor.current;
-  }
 
   const fixedWidth = processSize(width);
   const fixedHeight = processSize(height);
@@ -136,6 +127,31 @@ const SqlEditor: ForwardRefRenderFunction<IMonacoEditorImperativeHandles, IMonac
     [fixedWidth, fixedHeight],
   );
 
+  // 获得文本编辑器
+  function getEditor(): MonacoEditor.IStandaloneCodeEditor | null {
+    return editor.current;
+  }
+
+  // 获得文本编辑器
+  function format(
+    text?: string,
+    lang?: TEditorLanguage,
+  ): ReturnType<typeof formattingEditorContent> {
+    if (editor.current) {
+      const formatLanguage = lang || editor.current.getModel().getLanguageId();
+      if (!SupportLanguages.includes(formatLanguage)) {
+        return Promise.resolve({ error: new Error(`${formatLanguage}语言暂不支持格式化！`) });
+      }
+
+      return formattingEditorContent(
+        text || editor.current.getValue(),
+        lang || (editor.current.getModel().getLanguageId() as TEditorLanguage),
+      );
+    }
+
+    return Promise.resolve({ error: new Error('编辑器不存在！') });
+  }
+
   /**
    * 导出方法
    */
@@ -143,6 +159,7 @@ const SqlEditor: ForwardRefRenderFunction<IMonacoEditorImperativeHandles, IMonac
     ref,
     () => ({
       getEditor,
+      format,
       monaco,
     }),
     [],
@@ -347,4 +364,4 @@ const SqlEditor: ForwardRefRenderFunction<IMonacoEditorImperativeHandles, IMonac
   );
 };
 
-export default forwardRef(SqlEditor);
+export default forwardRef(CodeEditor);

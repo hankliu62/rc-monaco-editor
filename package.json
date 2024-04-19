@@ -1,6 +1,6 @@
 {
   "name": "@hankliu/rc-monaco-editor",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "private": false,
   "description": "React easy to use monaco-editor component",
   "keywords": [

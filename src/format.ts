@@ -1,7 +1,26 @@
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
+import type { editor as MonacoEditor } from 'monaco-editor';
 // @ts-ignore
 import PrettierWorker from 'worker-loader!./workers/prettier.worker';
 import { createWorkerQueue } from '@/utils/workers';
+import { SupportLanguages } from '@/constants';
+import type { TEditorLanguage } from '@/types';
+
+let prettierWorker;
+
+export async function formattingEditorContent(
+  text: string,
+  language: TEditorLanguage,
+): Promise<{ canceled?: boolean; error?: Error; pretty?: string }> {
+  if (!prettierWorker) {
+    prettierWorker = createWorkerQueue(PrettierWorker);
+  }
+  // 使用WebWorker进行代码格式化处理
+  return await prettierWorker.emit({
+    text,
+    language,
+  });
+}
 
 /**
  * 注册代码格式化工具
@@ -10,19 +29,13 @@ import { createWorkerQueue } from '@/utils/workers';
  */
 export function registerDocumentFormattingEditProviders() {
   const disposables = [];
-  let prettierWorker;
-
   const formattingEditProvider = {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    async provideDocumentFormattingEdits(model, _options, _token) {
-      if (!prettierWorker) {
-        prettierWorker = createWorkerQueue(PrettierWorker);
-      }
+    async provideDocumentFormattingEdits(model: MonacoEditor.ITextModel) {
       // 使用WebWorker进行代码格式化处理
-      const { canceled, error, pretty } = await prettierWorker.emit({
-        text: model.getValue(),
-        language: model.getLanguageId(),
-      });
+      const { canceled, error, pretty } = await formattingEditorContent(
+        model.getValue(),
+        model.getLanguageId() as TEditorLanguage,
+      );
 
       if (canceled || error) return [];
 
@@ -35,22 +48,7 @@ export function registerDocumentFormattingEditProviders() {
     },
   };
 
-  const supportLanguages = [
-    'json',
-    'javascript',
-    'typescript',
-    'css',
-    'less',
-    'scss',
-    'markdown',
-    'graphql',
-    'handlebars',
-    'html',
-    'yaml',
-    'sql',
-  ];
-
-  for (const lang of supportLanguages) {
+  for (const lang of SupportLanguages) {
     disposables.push(
       monaco.languages.registerDocumentFormattingEditProvider(lang, formattingEditProvider),
     );
