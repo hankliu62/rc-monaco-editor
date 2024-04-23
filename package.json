@@ -45,7 +45,7 @@
     "@babel/runtime": "^7.24.4",
     "classnames": "^2.5.1",
     "json_typegen_wasm": "^0.7.0",
-    "monaco-editor": "^0.47.0",
+    "monaco-editor": "^0.48.0",
     "p-queue": "^8.0.1",
     "prettier": "^3.2.5",
     "prettier-plugin-java": "^2.6.0",
