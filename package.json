@@ -70,7 +70,7 @@
     "glob": "^10.3.12",
     "less": "^4.2.0",
     "monaco-editor-webpack-plugin": "^7.1.0",
-    "node-polyfill-webpack-plugin": "^3.0.0",
+    "node-polyfill-webpack-plugin": "^4.0.0",
     "np": "^10.0.3",
     "rc-test": "^7.0.15",
     "react": "^18.2.0",
